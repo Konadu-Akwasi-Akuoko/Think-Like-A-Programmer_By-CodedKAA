@@ -35,7 +35,7 @@ int main()
     cin >> response;
     if (response == 'y' | response == 'Y')
     {
-        AntonSolution()
+        AntonSolution();
     }
 }
 
