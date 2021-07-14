@@ -14,7 +14,7 @@ a pattern of hash symbols shaped like a sideways triangle:
 */
 
 void AntonSolution();
-string response;
+char response;
 
 int fromLine5 = 3;
 void printHashVal();
@@ -50,11 +50,12 @@ int main()
         }
         cout << "\n";
     }
-    //Here is the solution of Mr. Anton.
-    cout << "Would you like to see the solution of Mr.Anton? \n";
+    
+    //Here is the solution of Anton.
+    cout << "Would you like to see the solution of Anton? \n";
     cout << "Y for yes, and N for no \n";
     cin >> response;
-    if (response == "Y" | response == "y")
+    if (response == 'Y' | response == 'y')
     {
         AntonSolution();
     }
@@ -66,7 +67,7 @@ void printHashVal()
     cout << "#";
 }
 
-//This is the solution of Mr. Anton.
+//This is the solution of Anton.
 void AntonSolution()
 {
     for (int row = 1; row <= 7; row++)
