@@ -21,9 +21,8 @@ operation (by 27 or 9, depending on mode) results in 0, the decoding mode switch
 mode is uppercase, the mode switches to lowercase letters. If the current mode is lowercase, the 
 mode switches to punctuation, and if it is punctuation, it switches back to uppercase.*/
 
-//Modes of the application.
+//Modes of the application. (U,L,P)
 char Mode;
-int currentMode = 0;
 //The raw/coded number.
 int codedNum;
 char UCaseLetters[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
@@ -34,6 +33,7 @@ void ModCalculator(int inputNum);
 int AlphaNum = 27;
 //The modulo for punctuations.
 int PuncNum = 9;
+void GetCodedNum();
 void UpCaLettersConvert(int modAnswer);
 void LoCaLettersConvert(int modAnswer);
 void PunctuationConvert(int modAnswer);
@@ -41,18 +41,26 @@ void ChangeMode();
 //The converted message.
 string DecodeMessage;
 
+char Ufinished;
+
 // main() is where program execution begins.
 int main()
 {
     //When the program starts the mode is always set to U.
     Mode = 'U';
+    GetCodedNum();
+}
+
+//Get the coded number
+void GetCodedNum()
+{
     //Get code character by character.
-    cout << "Enter the coded message character by character. \n";
+    cout << "Enter the coded number: \n";
     cin >> codedNum;
     ModCalculator(codedNum);
 }
 
-//This calculates the number based on the current mode (U,L,P). It later sends the mod answer to the required location.
+//This calculates the number based on the current mode (U,L,P). It later sends the mod answer to the required function.
 void ModCalculator(int inputNum)
 {
     if (Mode == 'U')
@@ -66,7 +74,7 @@ void ModCalculator(int inputNum)
         else
         {
             //Send the result to modeChanger function.
-            return;
+            ChangeMode();
         }
     }
 
@@ -81,6 +89,7 @@ void ModCalculator(int inputNum)
         else
         {
             //Send the result to modeChanger function.
+            ChangeMode();
         }
     }
 
@@ -90,10 +99,12 @@ void ModCalculator(int inputNum)
         if (Answer != 0)
         {
             //Send the result to punctuation function.
+            PunctuationConvert(Answer);
         }
         else
         {
             //Send the result to modeChanger function.
+            ChangeMode();
         }
     }
 }
@@ -102,27 +113,102 @@ void ModCalculator(int inputNum)
 void UpCaLettersConvert(int modAnswer)
 {
     //When the codedNum is converted to a number from 1 to 26, we choose the appopirate letter.
-    //And we add it to the string using the push_back() function, it add it to the last place.
+    //And we add it to the string using the push_back() function, it adds it to the last place.
     DecodeMessage.push_back(UCaseLetters[modAnswer - 1]);
     cout << "The decoded letter is: " << UCaseLetters[modAnswer - 1] << endl;
     cout << "Here is the decoded message: " << DecodeMessage << endl;
+
+    //After you have decoded a message, you will be asked if you wish to continue.
+    cout << "Do you want to decode another message? (y/Y)yes, (n/N)no \n";
+    cin >> Ufinished;
+    if (Ufinished == 'y' | Ufinished == 'Y')
+    {
+        GetCodedNum();
+    }
+    else
+        cout << "This is the full decoded message: " << DecodeMessage << endl;
 }
 
 void LoCaLettersConvert(int modAnswer)
 {
     //When the codedNum is converted to a number from 1 to 26, we choose the appopirate letter.
-    //And we add it to the string using the push_back() function, it add it to the last place.
+    //And we add it to the string using the push_back() function, it adds it to the last place.
     DecodeMessage.push_back(LCaseLetters[modAnswer - 1]);
-    cout << "The decoded letter is: " << UCaseLetters[modAnswer - 1] << endl;
+    cout << "The decoded letter is: " << LCaseLetters[modAnswer - 1] << endl;
     cout << "Here is the decoded message: " << DecodeMessage << endl;
+
+    //After you have decoded a message, you will be asked if you wish to continue.
+    cout << "Do you want to decode another message? (y/Y)yes, (n/N)no \n";
+    cin >> Ufinished;
+    if (Ufinished == 'y' | Ufinished == 'Y')
+    {
+        GetCodedNum();
+    }
+    else
+        cout << "This is the full decoded message: " << DecodeMessage << endl;
 }
 
 void PunctuationConvert(int modAnswer)
 {
+    //When the codeNum is converted to a number from one to nine we choose the appopirate punctuation.
+    //And we add it to the string using the push_back() function.
     DecodeMessage.push_back(Punctuations[modAnswer - 1]);
+    cout << "Punctuation added: " << Punctuations[modAnswer - 1] << endl;
+
+    //After you have decoded a message, you will be asked if you wish to continue.
+    cout << "Do you want to decode another message? (y/Y)yes, (n/N)no \n";
+    cin >> Ufinished;
+    if (Ufinished == 'y' | Ufinished == 'Y')
+    {
+        GetCodedNum();
+    }
+    else
+        cout << "This is the full decoded message: " << DecodeMessage << endl;
 }
 
 void ChangeMode()
 {
-    //Change the mode 
+    //Change the mode based on the current mode.
+    switch (Mode)
+    {
+    case 'U':
+        Mode = 'L';
+        cout << "Mode changed to L \n";
+        //After you have changed the mode, you will be asked if you wish to continue.
+        cout << "Do you want to decode another message? (y/Y)yes, (n/N)no \n";
+        cin >> Ufinished;
+        if (Ufinished == 'y' | Ufinished == 'Y')
+        {
+            GetCodedNum();
+        }
+        else
+            cout << "This is the full decode message: " << DecodeMessage << endl;
+        break;
+    case 'L':
+        Mode = 'P';
+        cout << "Mode changed to P \n";
+        //After you have changed the mode, you will be asked if you wish to continue.
+        cout << "Do you want to decode another message? (y/Y)yes, (n/N)no \n";
+        cin >> Ufinished;
+        if (Ufinished == 'y' | Ufinished == 'Y')
+        {
+            GetCodedNum();
+        }
+        else
+            cout << "This is the full decode message: " << DecodeMessage << endl;
+        break;
+    case 'P':
+        Mode = 'U';
+        cout << "Moded changed to U \n";
+        //After you have changed the mode, you will be asked if you wish to continue.
+        cout << "Do you want to decode another message? (y/Y)yes, (n/N)no \n";
+        cin >> Ufinished;
+        if (Ufinished == 'y' | Ufinished == 'Y')
+        {
+            GetCodedNum();
+        }
+        else
+            cout << "This is the full decode message: " << DecodeMessage << endl;
+        break;
+    }
 }
