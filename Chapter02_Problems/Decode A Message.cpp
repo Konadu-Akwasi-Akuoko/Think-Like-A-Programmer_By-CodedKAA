@@ -66,7 +66,7 @@ void GetCodedNum()
 //before and after the comma as whole integers. The function will be called SortCodedNum(). It's primary
 //function it to transform a set of string to integers and send them to the ModCalculator.
 void SortCodedNum(string codedString)
-{
+{        
     int num;
     //Temporal variable where the coded numbers will be stored as strings.
     string tempCodedNum;
